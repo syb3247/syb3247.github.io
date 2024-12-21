@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분리수거 가이드</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #fcfbe7;
+            color: green;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid green;
+        }
+
+        nav {
+            float: left;
+            width: 20%;
+            background-color: #f2f2f2;
+            padding: 10px;
+            height: calc(100vh - 60px);
+            box-sizing: border-box;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .content-container {
+            float: left;
+            width: 80%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .search-container {
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #f9fbe7;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .search-container input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .search-container button {
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-result {
+            width: 100%;
+            padding: 10px;
+            background-color: #e8f5e9;
+            box-sizing: border-box;
+        }
+
+        .search-result img {
+            max-width: 100px;
+            margin-right: 10px;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            clear: both;
+            background-color: gray;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        const categoryData = {
+            플라스틱: [
+                { text: "페트병", img: "페트병.png" },
+                { text: "플라스틱 용기", img: "플라스틱용기.png" }
+            ],
+            종이: [
+                { text: "신문지", img: "신문지.png" },
+                { text: "종이 상자", img: "종이상자.png" }
+            ],
+            유리: [
+                { text: "유리병", img: "유리병.png" },
+                { text: "유리 공병", img: "유리공병.png" }
+            ]
+        };
+
+        function showCategory(category) {
+            const results = document.querySelector('.search-result');
+            results.innerHTML = "";
+
+            const items = categoryData[category];
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.classList.add('search-result-item');
+                div.innerHTML = `<img src="${item.img}" alt="${item.text}"><span>${item.text}</span>`;
+                results.appendChild(div);
+            });
+        }
+
+        function searchItems(event) {
+            event.preventDefault();
+            const query = document.querySelector('input[type="text"]').value.trim();
+            const results = document.querySelector('.search-result');
+            results.innerHTML = "";
+
+            if (!query) {
+                results.innerHTML = "<p>검색어를 입력해 주세요.</p>";
+                return;
+            }
+
+            let found = false;
+
+            for (const category in categoryData) {
+                categoryData[category].forEach(item => {
+                    if (item.text.includes(query)) {
+                        const div = document.createElement('div');
+                        div.classList.add('search-result-item');
+                        div.innerHTML = `<img src="${item.img}" alt="${item.text}"><span>${item.text} (${category})</span>`;
+                        results.appendChild(div);
+                        found = true;
+                    }
+                });
+            }
+
+            if (!found) {
+                results.innerHTML = `<p>"${query}"에 대한 결과를 찾을 수 없습니다.</p>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>분리수거 가이드</h1>
+        <p>올바른 분리수거 실천으로 환경을 보호합시다.</p>
+    </header>
+
+    <nav>
+        <h2>카테고리</h2>
+        <ul>
+            <li><a onclick="showCategory('플라스틱')">플라스틱</a></li>
+            <li><a onclick="showCategory('종이')">종이</a></li>
+            <li><a onclick="showCategory('유리')">유리</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-container">
+        <div class="search-container">
+            <h2>검색</h2>
+            <form onsubmit="searchItems(event)">
+                <input type="text" placeholder="내용을 입력해 주세요." />
+                <button type="submit">검색</button>
+            </form>
+            <div class="search-result">
+                <p>카테고리를 선택하거나 검색 결과를 확인하세요.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 분리수거 가이드 - 202401374 서예빈</p>
+    </footer>
+</body>
+</html>
