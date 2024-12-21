@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +12,11 @@
         }
 
         header {
-            background-color: white;
-            color: #4CAF50;
+            background-color: yellow;
+            color: green;
             padding: 20px;
             text-align: center;
-            border: 2px solid #4CAF50;
+            border: 2px solid green;
         }
 
         nav {
@@ -72,7 +71,7 @@
 
         .search-container button {
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: green;
             color: white;
             border: none;
             cursor: pointer;
@@ -98,7 +97,7 @@
 
         footer {
             clear: both;
-            background-color: #333;
+            background-color: gray;
             color: white;
             text-align: center;
             padding: 10px;
@@ -106,33 +105,25 @@
     </style>
     <script>
         const categoryData = {
-            plastic: [
-                { text: "페트병", img: "페트병.png" },
-                { text: "플라스틱 용기", img: "플라스틱 용기.png" },
-                { text: "플라스틱 뚜껑", img: "플라스틱 뚜껑.png" }
+            플라스틱: [
+                { text: "페트병", img: "https://via.placeholder.com/100x100?text=페트병" },
+                { text: "플라스틱 용기", img: "https://via.placeholder.com/100x100?text=플라스틱용기" }
             ],
-            paper: [
-                { text: "신문지", img: "신문지.png" },
-                { text: "책", img: "책.png" },
-                { text: "종이 상자", img: "박스.png" }
+            종이: [
+                { text: "신문지", img: "https://via.placeholder.com/100x100?text=신문지" },
+                { text: "종이 상자", img: "https://via.placeholder.com/100x100?text=종이상자" }
             ],
-            glass: [
-                { text: "유리병", img: "유리병.png" },
-                { text: "유리 공병", img: "공병.png" }
+            유리: [
+                { text: "유리병", img: "https://via.placeholder.com/100x100?text=유리병" },
+                { text: "유리 공병", img: "https://via.placeholder.com/100x100?text=유리공병" }
             ]
         };
 
-        const categoryNames = {
-            plastic: "플라스틱",
-            paper: "종이",
-            glass: "유리"
-        };
-
-        function showCategory(categoryId) {
+        function showCategory(category) {
             const results = document.querySelector('.search-result');
             results.innerHTML = "";
 
-            const items = categoryData[categoryId];
+            const items = categoryData[category];
             items.forEach(item => {
                 const div = document.createElement('div');
                 div.classList.add('search-result-item');
@@ -159,7 +150,7 @@
                     if (item.text.includes(query)) {
                         const div = document.createElement('div');
                         div.classList.add('search-result-item');
-                        div.innerHTML = `<img src="${item.img}" alt="${item.text}"><span>${item.text} (${categoryNames[category]})</span>`;
+                        div.innerHTML = `<img src="${item.img}" alt="${item.text}"><span>${item.text} (${category})</span>`;
                         results.appendChild(div);
                         found = true;
                     }
@@ -172,7 +163,6 @@
         }
     </script>
 </head>
-
 <body>
     <header>
         <h1>분리수거 가이드</h1>
@@ -182,9 +172,9 @@
     <nav>
         <h2>카테고리</h2>
         <ul>
-            <li><a onclick="showCategory('plastic')">플라스틱</a></li>
-            <li><a onclick="showCategory('paper')">종이</a></li>
-            <li><a onclick="showCategory('glass')">유리</a></li>
+            <li><a onclick="showCategory('플라스틱')">플라스틱</a></li>
+            <li><a onclick="showCategory('종이')">종이</a></li>
+            <li><a onclick="showCategory('유리')">유리</a></li>
         </ul>
     </nav>
 
@@ -202,8 +192,7 @@
     </div>
 
     <footer>
-        <p>© 2024 분리수거 가이드 | 202401374 서예빈</p>
+        <p>© 2024 분리수거 가이드</p>
     </footer>
 </body>
-
 </html>
